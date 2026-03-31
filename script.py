@@ -432,4 +432,19 @@ df = pd.DataFrame(results)
 df.to_csv(
     "D:/amazon_fast_output.csv",
     index=False
-)
+) import smtplib
+from email.message import EmailMessage
+
+msg = EmailMessage()
+msg['Subject'] = 'Daily Amazon Report'
+msg['From'] = 'zeelpithva2004@gmail.com'
+msg['To'] = 'zeelpithva2004@gmail.com'
+
+msg.set_content('Please find attached report.')
+
+with open('output.xlsx', 'rb') as f:
+    msg.add_attachment(f.read(), maintype='application', subtype='xlsx', filename='output.xlsx')
+
+with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+    smtp.login('zeelpithva2004@gmail.com', 'gqsg dyxe abvp heyh')
+    smtp.send_message(msg) 
