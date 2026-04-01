@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Python
@@ -20,12 +20,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pandas openpyxl selenium beautifulsoup4
+          pip install selenium pandas openpyxl beautifulsoup4
 
-      - name: Install Chrome & Driver
+      - name: Install Chromium + Driver
         run: |
           sudo apt update
           sudo apt install -y chromium-browser chromium-chromedriver
 
-      - name: Run Script
+      - name: Run script
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
         run: python script.py
