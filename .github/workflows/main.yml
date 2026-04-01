@@ -1,8 +1,8 @@
-name: Daily Report
+name: Amazon Automation
 
 on:
   schedule:
-    - cron: '30 3 * * *'
+    - cron: '30 3 * * *'   # 9 AM IST
   workflow_dispatch:
 
 jobs:
@@ -10,12 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
-      - run: pip install pandas openpyxl requests beautifulsoup4 selenium webdriver-manager
+      - name: Install dependencies
+        run: |
+          pip install pandas openpyxl selenium beautifulsoup4
 
-      - run: python script.py
+      - name: Install Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y chromium-browser
+
+      - name: Run Script
+        run: python script.py
