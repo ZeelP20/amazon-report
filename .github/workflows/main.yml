@@ -2,8 +2,8 @@ name: Daily Report
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9 AM IST
-     workflow_dispatch:
+    - cron: '30 3 * * *'
+  workflow_dispatch:
 
 jobs:
   run:
