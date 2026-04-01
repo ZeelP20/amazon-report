@@ -432,7 +432,8 @@ df = pd.DataFrame(results)
 df.to_csv(
     "D:/amazon_fast_output.csv",
     index=False
-) import smtplib
+) 
+import smtplib
 from email.message import EmailMessage
 
 msg = EmailMessage()
