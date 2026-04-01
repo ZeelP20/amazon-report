@@ -22,10 +22,10 @@ jobs:
         run: |
           pip install pandas openpyxl selenium beautifulsoup4
 
-      - name: Install Chrome
+      - name: Install Chrome & Driver
         run: |
           sudo apt update
-          sudo apt install -y chromium-browser
+          sudo apt install -y chromium-browser chromium-chromedriver
 
       - name: Run Script
         run: python script.py
