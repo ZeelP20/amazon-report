@@ -23,12 +23,20 @@ def scrape_amazon(asin, driver):
     try:
         url = f"https://www.amazon.in/dp/{asin}"
         driver.get(url)
-        time.sleep(3)
+        time.sleep(5)
 
         soup = BeautifulSoup(driver.page_source, "html.parser")
 
-        price = safe_text(soup, "span.a-price span.a-offscreen")
-        deal = safe_text(soup, "span.a-badge-text") or "No Deal"
+        price = (
+    safe_text(soup, "span.a-price span.a-offscreen") or
+    safe_text(soup, "#priceblock_ourprice") or
+    safe_text(soup, "#priceblock_dealprice") or
+    safe_text(soup, "#priceblock_saleprice")
+)
+        deal = safe_text(soup, "span.a-badge-text") \
+    or safe_text(soup, "#dealBadgeSupportingText") \
+    or safe_text(soup, ".dealBadgeText") \
+    or "No Deal"
         coupon = safe_text(soup, "span.a-color-success") or "No Coupon"
 
         return {
@@ -53,8 +61,12 @@ options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 
+# ✅ ADD THESE 2 LINES HERE
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument("--window-size=1920,1080")
+
 options.add_argument(
-    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+    "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/53736"
 )
 
 options.binary_location = "/usr/bin/chromium-browser"
