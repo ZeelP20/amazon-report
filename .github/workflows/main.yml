@@ -2,7 +2,7 @@ name: Amazon Automation
 
 on:
   schedule:
-    - cron: '30 3 * * *'   # 9 AM IST
+    - cron: '0 3 * * *'   # 9 AM IST
   workflow_dispatch:
 
 jobs:
